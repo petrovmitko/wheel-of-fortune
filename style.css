@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: flex-start;
     background: #1099bb;
+    position: relative;
   }
 
   #wrapper {
@@ -39,6 +40,31 @@
     font-size: 16px;
     font-family: 'Courier New', Courier, monospace;
   }
-  .history-wrapper ul li:nth-child(3n){
+  .history-wrapper ul li:nth-child(4n){
     border-bottom: 1px solid;
+  }
+  .spin-win {
+    margin: 10px;
+    width: 200px;
+  }
+
+  .spin-win-txt{
+    font-size: 26px;
+    font-family: fantasy;
+    color: #deac21;
+    display: block;
+    text-align: center;
+  }
+
+  .spin-win .hide{
+    display: none;
+  }
+
+  .current-prize {
+    text-align: center;
+    font-size: 26px;
+    font-family: fantasy;
+    color: #deac21;
+    position: absolute;
+    top: 10px;
   }
