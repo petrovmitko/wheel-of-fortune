@@ -1,0 +1,21 @@
+*, html, body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1099bb;
+  }
+
+  #wrapper {
+    margin: 100px auto;
+    background: #1099bb;
+    width: 800px;
+  }
+  #wrapper > canvas {
+    margin: 0 auto;
+  }

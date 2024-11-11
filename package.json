@@ -1,0 +1,28 @@
+{
+  "name": "wheel-of-fortune",
+  "version": "1.0.0",
+  "description": "This project is a web-based **Wheel of Fortune** game developed as part of a job application task. The game allows users to spin a wheel to win prizes in a fun, interactive way.",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petrovmitko/wheel-of-fortune.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petrovmitko/wheel-of-fortune/issues"
+  },
+  "homepage": "https://github.com/petrovmitko/wheel-of-fortune#readme",
+  "dependencies": {
+    "@pixi/assets": "^6.5.10",
+    "pixi.js": "^6.5.10"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
