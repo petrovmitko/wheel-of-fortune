@@ -7,7 +7,7 @@
   body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background: #1099bb;
   }
 
@@ -18,4 +18,13 @@
   }
   #wrapper > canvas {
     margin: 0 auto;
+  }
+
+  .results {
+    margin: 10px;
+  }
+  .results span {
+    font-size: 40px;
+    font-family: fantasy;
+    color: #deac21;
   }

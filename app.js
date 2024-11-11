@@ -12,6 +12,7 @@ import { Assets } from '@pixi/assets';
     const container = new PIXI.Container();
     
     document.getElementById('wrapper').appendChild(app.view);
+    const totalEl = document.querySelector('.total-val'); 
 
     const btnImage = await Assets.load('https://i.postimg.cc/tCGbSCGG/btnStart.png');
     const arrowImage = await Assets.load('https://i.postimg.cc/tCdjLQ9Z/arrow.png');
@@ -33,12 +34,30 @@ import { Assets } from '@pixi/assets';
     startBtn.buttonMode = true;
 
     let sectors = new PIXI.Graphics();
-    
-    let rewards = ["500", "1000", "200", "500", "Free Spin", "100", "20", "500", "1000", "600", "800", 
-        "700", "250", "20", "100", "700", "400", "100"
-    ];    
+     
+    const sectorsData = [
+        {stopedOn: 14, value: '500', deg: 0},
+        {stopedOn: 13, value: '1000', deg: 20},
+        {stopedOn: 12, value: '200', deg: 40},
+        {stopedOn: 11, value: '500', deg: 60},
+        {stopedOn: 10, value: 'Free Spin', deg: 80},
+        {stopedOn: 9, value: '100', deg: 100},
+        {stopedOn: 8, value: '20', deg: 120},
+        {stopedOn: 7, value: '500', deg: 140},
+        {stopedOn: 6, value: '1000', deg: 160},
+        {stopedOn: 5, value: '600', deg: 180},
+        {stopedOn: 4, value: '800', deg: 200},
+        {stopedOn: 3, value: '50', deg: 220},
+        {stopedOn: 2, value: '250', deg: 240},
+        {stopedOn: 1, value: '20', deg: 260},
+        {stopedOn: 18, value: '100', deg: 280},
+        {stopedOn: 17, value: '700', deg: 300},
+        {stopedOn: 16, value: '400', deg: 320},
+        {stopedOn: 15, value: '100', deg: 340},
+    ];
 
     const sectorSize = 360 / 18;
+
     for(let i = 0; i < 18; i++) {
         const deg_to_rag = PIXI.DEG_TO_RAD;
         sectors.beginFill((i & 1) ? 0x4287f5 : 0xdeac21);
@@ -48,7 +67,7 @@ import { Assets } from '@pixi/assets';
         sectors.lineTo(0, 0);
         sectors.endFill();
         
-        const text = new PIXI.Text(rewards[i], {
+        const text = new PIXI.Text(sectorsData[i].value, {
             fontFamily: 'Arial',
             fontSize: 20,
             fill: 0xffffff,
@@ -70,7 +89,8 @@ import { Assets } from '@pixi/assets';
 
     function spin() {
         let click = false;
-        let targetAngle = randomNum(10, 360) + 360 * 3;
+        diff = randomNum(10, 360);
+        let targetAngle = diff + 360 * 3;
         let currentAngle = 0;
         
         app.ticker.add(() => {
@@ -80,25 +100,26 @@ import { Assets } from '@pixi/assets';
             }
             else {
                 if(!click) {
-                    identifySector(currentAngle % 360);
+                    identifySector(targetAngle);
                     click = true;
                 }
             }
         });
     }
 
-    function identifySector(finalAngle) {
-        const adjustedAngle = finalAngle < 0 ? finalAngle + 360 : finalAngle;
-        const sector = Math.floor(adjustedAngle / sectorSize);
-        console.log(container);
+    function identifySector(targetAngle) {
+        const finalAngle = sectors.rotation * (180 / Math.PI);
+        const adjustedAngle = ((finalAngle % 360) + 360) % 360;
+        const sector = Math.round(adjustedAngle / sectorSize);
+        // console.log("stopped on sector:", sector + 1);
+        const winObject = sectorsData.find(x => x.stopedOn === (sector + 1));
+        console.log(winObject);
+        totalEl.textContent = +totalEl.textContent + +winObject.value;
         
-        console.log("stopped on sector:", sector + 1);
-        console.log(rewards[sector]);
     }
 
     function randomNum(min, max) {
-        const result = Math.floor(Math.random() * (max - min + 1) + min);
-        return result % sectorSize === 0 ? result + 6 : result;
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
 })();
