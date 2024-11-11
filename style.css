@@ -28,3 +28,17 @@
     font-family: fantasy;
     color: #deac21;
   }
+  .history-wrapper {
+    margin-top: 10px;
+  }
+  .history-wrapper ul{
+    margin-bottom: 8px;
+  }
+  .history-wrapper ul li {
+    color: black;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .history-wrapper ul li:nth-child(3n){
+    border-bottom: 1px solid;
+  }
