@@ -6,6 +6,7 @@ This project is a web-based **Wheel of Fortune** game developed as part of a job
 
 - **Spin the Wheel:** A visually engaging wheel animation that spins to reveal prizes.
 - **Prize Display:** The prize is displayed to the user after each spin.
+- **Free Spin:** When the wheel lands on the "Free Spin" sector, the user is awarded 3 automatic spins. These spins occur consecutively without any user interaction, allowing for a chance to win additional prizes without further input.l
 
 ## Technologies Used
 
