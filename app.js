@@ -98,6 +98,19 @@ import { Assets } from '@pixi/assets';
     let freeSpinTotal = 0;
     let roundsCounter = 0;
 
+    const specialSectors = getTwoSpecialSectors();
+    /*
+     c getSpecialSectorsSpinIndex() взимам позициите, на които да спре колелото на специален сектор, 
+     така че да се разминат и да не могат да се изпълнят последователно.
+     */
+    const specialSpinIndexArray = getSpecialSectorsSpinIndex();
+    let freeSpinIndexArray = [];
+    for(let i = 1; i <= 10; i++) {
+        if(specialSpinIndexArray.indexOf(i) === -1) {
+            freeSpinIndexArray.push(i);
+        }
+    }    
+    
     function spin() {
         roundsCounter++;
         let click = false;
@@ -110,20 +123,22 @@ import { Assets } from '@pixi/assets';
             // Предпазва от попадане на същия сектор в 2 последователни пъти;
             diff = preventFallingSameSector(diff, lastSectorData.min, lastSectorData.max);
         }
-        if([1,4,6,8,10].indexOf(roundsCounter) !== -1){
+        if(freeSpinIndexArray.indexOf(roundsCounter) !== -1){
             // предпазва да се паднат секторите, които трябва да се повтарят
-            diff = preventFallingSpecialSector(diff, 126, 145, 146, 165);
+            diff = preventFallingSpecialSector(diff, 
+                specialSectors[0].min, specialSectors[0].max, 
+                specialSectors[1].min, specialSectors[1].max,
+            );
         }
-        if(roundsCounter === 2 || roundsCounter === 5){
-            // направил съм ги винаги сектор 250 (жълтия) да се покаже 2 пъти
-            // Логиката може дасе екстендне, като всеки път избирам прозволен от sectorsData
-            diff = 130;
+        if(roundsCounter === specialSpinIndexArray[1] || roundsCounter === specialSpinIndexArray[3]){
+            // Взимам първия от избраните сектори и указвам кога/къде да спре колелото
+            diff = specialSectors[0].min + 10;
         }
-        if(roundsCounter === 3 || roundsCounter === 7 || roundsCounter === 9){
-            // направил съм ги винаги сектор 400 (синия) да се покаже 3 пъти
-            // Логиката може дасе екстендне, като всеки път избирам прозволен от sectorsData и diff ще е число между mix и max на обекта
-            
-            diff = 150;
+        if( roundsCounter === specialSpinIndexArray[0] || 
+            roundsCounter === specialSpinIndexArray[2] || 
+            roundsCounter === specialSpinIndexArray[4]){
+            // Взимам втория от избраните сектори и указвам кога/къде да спре колелото
+            diff = specialSectors[1].min + 10;
         }
         // Правя 3 последователни оборота + random стойност;
         let targetAngle = diff + 360 * 3;
@@ -215,6 +230,21 @@ import { Assets } from '@pixi/assets';
             return preventFallingSameSector(randomNum(10, 349), minA, maxA, minB, maxBx);
         }
         return diff;
+    }
+
+    function getTwoSpecialSectors() {
+        let a = randomNum(0, 8);
+        let b = randomNum(9, 17);
+        
+        while(a === 4) {
+            // исключвам възможноста специалния сектор да е free spin
+            a = randomNum(0, 8);
+        }
+        return [sectorsData[a], sectorsData[b]];
+    }
+
+    function getSpecialSectorsSpinIndex() {
+        return [randomNum(1, 2), randomNum(3, 4), randomNum(5, 6),randomNum(7, 8), randomNum(9, 10)];
     }
 
 })();
