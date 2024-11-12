@@ -18,7 +18,7 @@ This project is a web-based **Wheel of Fortune** game developed as part of a job
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/yourusername/wheel-of-fortune.git
+   git clone https://github.com/petrovmitko/wheel-of-fortune.git
 
 2. Install dependencies:
    npm install
